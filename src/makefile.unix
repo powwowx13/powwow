@@ -149,10 +149,10 @@ OBJS= \
     obj/scrypt-x86_64.o
 
 
-all: Axisd
+all: powwowd
 
-test check: test_Axis FORCE
-	./test_Axis
+test check: test_powwow FORCE
+	./test_powwow
 
 # auto-generated dependencies:
 -include obj/*.P
@@ -184,7 +184,7 @@ obj/%.o: %.c
 	rm -f $(@:%.o=%.d)
 
 
-Axisd: $(OBJS:obj/%=obj/%)
+powwowd: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -196,11 +196,11 @@ obj-test/%.o: test/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-test_Axis: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_powwow: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	$(LINK) $(xCXXFLAGS) -o $@ $(LIBPATHS) $^ -Wl,-B$(LMODE) -lboost_unit_test_framework $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f Axisd test_Axis
+	-rm -f powwowd test_powwow
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
 	-rm -f obj/*.P
